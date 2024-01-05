@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tools Configuration</title>
+    <!-- Bootstrap CSS -->
+    {% comment %} <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"> {% endcomment %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> 
+</head>
+<body>
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Voice Assistant Configuration</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home_assistant' %}">Home Assistant</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'tools' %}">Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'configuration_settings' %}">Configuration Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'general_customization' %}">General Customization</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle"></i> {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="container mt-4">
+        <h2>Configure Your Tools</h2>
+        <p>Select the tools you want to enable for your assistant.</p>
+
+        <!-- Tools Form -->
+        <form method="post">
+            {% csrf_token %}
+            {% comment %} {{ form.as_p }} {% endcomment %}
+            <h4>Information Services</h4>
+            <div class="form-group">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" value="on" id="liveWeather" name="live_weather" {% if settings.live_weather %}checked{% endif %}>
+                    <label class="form-check-label" for="liveWeather">Live Weather Information</label>
+                    <small class="form-text text-muted">Get real-time weather updates for any location.</small>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="bbcNews" name="bbc_news" value="on" {% if settings.bbc_news %}checked{% endif %}>
+                    <label class="form-check-label" for="bbcNews">BBC News Broadcast</label>
+                    <small class="form-text text-muted">Listen to the latest news from BBC.</small>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="googleSearch" name="google_search" value="on" {% if settings.google_search %}checked{% endif %}>
+                    <label class="form-check-label" for="googleSearch">Google Search</label>
+                    <small class="form-text text-muted">Perform web searches directly via voice commands.</small>
+                </div>
+            </div>
+
+            <h4>Google Services</h4>
+            <div class="form-group">
+                <!-- Google Calendar Checking -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="googleCalendarCheck" name="google_calendar_check" value="on" {% if settings.google_calendar_check %}checked{% endif %}>
+                    <label class="form-check-label" for="googleCalendarCheck">Google Calendar Checking</label>
+                    <small class="form-text text-muted">Check your upcoming events and appointments on Google Calendar.</small>
+                </div>
+                <!-- Google Calendar Adding -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="googleCalendarAdd" name="google_calendar_add" value="on" {% if settings.google_calendar_add %}checked{% endif %}>
+                    <label class="form-check-label" for="googleCalendarAdd">Google Calendar Adding</label>
+                    <small class="form-text text-muted">Add new events to your Google Calendar.</small>
+                </div>
+                <!-- Google Maps Directions -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="googleMapsDirections" name="google_maps_directions" value="on" {% if settings.google_maps_directions %}checked{% endif %}>
+                    <label class="form-check-label" for="googleMapsDirections">Google Maps Directions</label>
+                    <small class="form-text text-muted">Get directions to any location using Google Maps.</small>
+                </div>
+                <!-- Google Maps Places Information -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="googleMapsInfo" name="google_maps_info" value="on" {% if settings.google_maps_info %}checked{% endif %}>
+                    <label class="form-check-label" for="googleMapsInfo">Google Maps Places Information</label>
+                    <small class="form-text text-muted">Find information about places via Google Maps.</small>
+                </div>
+
+            <h4>Productivity Tools</h4>
+            <div class="form-group">
+                <!-- Set Reminder -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="setReminder" name="set_reminder" value="on" {% if settings.set_reminder %}checked{% endif %}>
+                    <label class="form-check-label" for="setReminder">Set Reminder</label>
+                    <small class="form-text text-muted">Create reminders for your important tasks and events.</small>
+                </div>
+                <!-- List Reminders -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="listReminder" name="list_reminder" value="on" {% if settings.list_reminder %}checked{% endif %}>
+                    <label class="form-check-label" for="listReminder">List Reminders</label>
+                    <small class="form-text text-muted">View all your set reminders.</small>
+                </div>
+                <!-- Edit Reminder -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="editReminder" name="edit_reminder" value="on" {% if settings.edit_reminder %}checked{% endif %}>
+                    <label class="form-check-label" for="editReminder">Edit Reminder</label>
+                    <small class="form-text text-muted">Modify your existing reminders.</small>
+                </div>
+            </div>
+
+            <h4>Communication and Control</h4>
+            <div class="form-group">
+                <!-- Smart Home Control -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="smartHomeControl" name="smart_home_control" value="on" {% if settings.smart_home_control %}checked{% endif %}>
+                    <label class="form-check-label" for="smartHomeControl">Smart Home Control</label>
+                    <small class="form-text text-muted">Control your smart home devices using voice commands and Home Assistant.</small>
+                </div>
+                <!-- Sending Message to Phone through Discord -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="discordMessage" name="discord_message" value="on" {% if settings.discord_message %}checked{% endif %}>
+                    <label class="form-check-label" for="discordMessage">Send Message to your Phone through Discord</label>
+                    <small class="form-text text-muted">Send important alerts and messages to your phone via Discord.</small>
+                </div>
+            </div>
+
+            <h4>Note Management</h4>
+            <div class="form-group">
+                <!-- Saving Notes -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="saveNotes" name="save_notes" value="on" {% if settings.save_notes %}checked{% endif %}>
+                    <label class="form-check-label" for="saveNotes">Save Notes</label>
+                    <small class="form-text text-muted">Quickly save notes and ideas by voice command.</small>
+                </div>
+                <!-- Listing Notes -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="listNotes" name="list_notes" value="on" {% if settings.list_notes %}checked{% endif %}>
+                    <label class="form-check-label" for="listNotes">List Notes</label>
+                    <small class="form-text text-muted">Retrieve and review your saved notes.</small>
+                </div>
+                <!-- Editing Notes -->
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="editNotes" name="edit_notes" value="on" {% if settings.edit_notes %}checked{% endif %}>
+                    <label class="form-check-label" for="editNotes">Edit Notes</label>
+                    <small class="form-text text-muted">Edit your existing notes to add more details or corrections.</small>
+                </div>
+            </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

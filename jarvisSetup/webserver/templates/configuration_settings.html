@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Environment Variables Configuration</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> 
+</head>
+<body>
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Voice Assistant Configuration</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home_assistant' %}">Home Assistant</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tools' %}">Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'configuration_settings' %}">Configuration Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'general_customization' %}">General Customization</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h2>Environment Variables Configuration</h2>
+        <p>Set and modify the environment variables required for tool functionalities.</p>
+        
+        <form>
+            <h4>Required Variables</h4>
+            <!-- Picovoice Access Key -->
+            <div class="form-group">
+                <label for="porcupineAccessKey">Picovoice Access Key</label>
+                <input type="text" class="form-control" id="porcupineAccessKey" placeholder="Enter Porcupine Access Key">
+                <small class="form-text text-muted">Sccess key for the Porcupine Keyword Detection, Eagle Speaker Diarization, and Koala Noise Suppression services.</small>
+            </div>
+
+            <!-- OpenAI API Key -->
+            <div class="form-group">
+                <label for="openaiApiKey">OpenAI API Key</label>
+                <input type="text" class="form-control" id="openaiApiKey" placeholder="Enter OpenAI API Key">
+                <small class="form-text text-muted">API key for accessing OpenAI services for advanced AI functionalities.</small>
+            </div>
+
+            <!-- OpenAI API Base -->
+            <div class="form-group">
+                <label for="openaiApiBase">OpenAI API Base URL</label>
+                <input type="text" class="form-control" id="openaiApiBase" placeholder="Enter OpenAI API Base URL">
+                <small class="form-text text-muted">Base URL for making API requests to OpenAI.</small>
+            </div>
+
+            {% if tool_settings.discord_message or tool_settings.google_search or tool_settings.google_maps_info or tool_settings.google_maps_directions or tool_settings.smart_home_control %}
+            <h4>Required Variables for selected Tools</h4>
+            {% endif %}
+            <!-- Discord Token -->
+            {% if tool_settings.discord_message %}
+            <div class="form-group">
+                <label for="discordToken">Discord Token</label>
+                <input type="text" class="form-control" id="discordToken" placeholder="Enter Discord Token">
+                <small class="form-text text-muted">Token for integrating with Discord API for messaging features.</small>
+            </div>
+            {% endif %}
+
+            <!-- Google API Key -->
+            {% if tool_settings.google_search %}
+            <div class="form-group">
+                <label for="googleApiKey">Google Search API Key</label>
+                <input type="text" class="form-control" id="googleApiKey" placeholder="Enter Google API Key">
+                <small class="form-text text-muted">API key for accessing Google search services.</small>
+            </div>
+            {% endif %}
+
+            <!-- Google CSE ID -->
+            {% if tool_settings.google_search %}
+            <div class="form-group">
+                <label for="googleCseId">Google CSE ID</label>
+                <input type="text" class="form-control" id="googleCseId" placeholder="Enter Google CSE ID">
+                <small class="form-text text-muted">Custom Search Engine ID for integrating Google Search functionalities.</small>
+            </div>
+            {% endif %}
+
+            <!-- Google Maps API Key -->
+            {% if tool_settings.google_maps_directions or tool_settings.google_maps_info %}
+            <div class="form-group">
+                <label for="googleMapsApiKey">Google Maps API Key</label>
+                <input type="text" class="form-control" id="googleMapsApiKey" placeholder="Enter Google Maps API Key">
+                <small class="form-text text-muted">API key for utilizing Google Maps features like directions and place information.</small>
+            </div>
+            {% endif %}
+
+
+
+            <!-- Home Assistant Token and URL -->
+            {% if tool_settings.smart_home_control %}
+            <div class="form-group">
+                <label for="hassToken">Home Assistant Token</label>
+                <input type="text" class="form-control" id="hassToken" placeholder="Enter Home Assistant Token">
+                <small class="form-text text-muted">Access token for integrating with Home Assistant for smart home control.</small>
+            </div>
+            <div class="form-group">
+                <label for="hassUrl">Home Assistant URL</label>
+                <input type="text" class="form-control" id="hassUrl" placeholder="Enter Home Assistant URL">
+                <small class="form-text text-muted">URL to access your Home Assistant instance.</small>
+            </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

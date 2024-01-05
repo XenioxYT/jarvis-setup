@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>General Customization</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> 
+</head>
+<body>
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Voice Assistant Configuration</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home_assistant' %}">Home Assistant</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tools' %}">Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'configuration_settings' %}">Configuration Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'general_customization' %}">General Customization</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <i class="fas fa-exclamation-circle"></i> {{ message }}
+                </div>
+            {% else %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <i class="fas fa-check-circle"></i> {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <div class="container mt-4">
+        <h2>General Customization Settings</h2>
+        <p>Modify general settings for your voice assistant.</p>
+    
+        <form method="post">
+            {% csrf_token %}
+            <!-- Assistant Name -->
+            <div class="form-group">
+                <label for="assistantName">Assistant Name</label>
+                <input type="text" class="form-control" name="assistant_name" id="assistantName" placeholder="Enter Assistant Name" value="{{ settings.assistant_name }}">
+                <small class="form-text text-muted">Name your assistant for a personalized experience.</small>
+            </div>
+    
+            <!-- Wake Word -->
+            <div class="form-group">
+                <label for="wakeWord">Wake Word</label>
+                <select class="form-select" name="wake_word" id="wakeWord">
+                    <option value="hey google" {% if settings.wake_word == 'hey google' %}selected{% endif %}>Hey Google</option>
+                    <option value="ok google" {% if settings.wake_word == 'ok google' %}selected{% endif %}>Ok Google</option>
+                    <option value="computer" {% if settings.wake_word == 'computer' %}selected{% endif %}>Computer</option>
+                    <option value="jarvis" {% if settings.wake_word == 'jarvis' %}selected{% endif %}>Jarvis</option>
+                    <option value="hey siri" {% if settings.wake_word == 'hey siri' %}selected{% endif %}>Hey Siri</option>
+                    <option value="alexa" {% if settings.wake_word == 'alexa' %}selected{% endif %}>Alexa</option>
+                </select>
+                <small class="form-text text-muted">Choose a wake word to activate the assistant.</small>
+            </div>
+    
+            <!-- System Prompt -->
+            <div class="form-group">
+                <label for="systemPrompt">System Prompt</label>
+                <input type="text" class="form-control" name="system_prompt" id="systemPrompt" placeholder="Enter System Prompt" value="{{ settings.system_prompt }}">
+                <small class="form-text text-muted">Customize the prompt used by the system for responses and interactions.</small>
+            </div>
+    
+            <!-- LLM Model Choice -->
+            <div class="form-group">
+                <label for="llmModel">LLM (Large Language Model) Choice</label>
+                <select class="form-select" name="llm_model" id="llmModel">
+                    <option value="gpt-3.5-turbo-1106" {% if settings.llm_model == 'gpt-3.5-turbo-1106' %}selected{% endif %}>gpt-3.5-turbo-1106</option>
+                    <option value="gpt-4-1106-preview" {% if settings.llm_model == 'gpt-4-1106-preview' %}selected{% endif %}>gpt-4-1106-preview</option>
+                </select>
+                <small class="form-text text-muted">Select the language model to be used by the assistant.</small>
+            </div>
+    
+            <!-- Voice Diarization -->
+            <div class="form-group">
+                <label for="voiceDiarization">Voice Diarization</label>
+                <select class="form-control" name="voice_diarization" id="voiceDiarization">
+                    <option value="enabled" {% if settings.voice_diarization == 'enabled' %}selected{% endif %}>Enabled</option>
+                    <option value="disabled" {% if settings.voice_diarization == 'disabled' %}selected{% endif %}>Disabled</option>
+                </select>
+                <small class="form-text text-muted">Enable or disable voice diarization to distinguish different speakers.</small>
+            </div>
+    
+            <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

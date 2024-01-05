@@ -1,0 +1,4 @@
+jarvisSetup/webserver/__pycache__/*
+jarvisSetup/jarvisSetup/__pycache__/*
+jarvisSetup/webserver/migrations/__pycache__/*
+venv/
