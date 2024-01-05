@@ -65,7 +65,7 @@
             </div>
     
             <!-- Wake Word -->
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="wakeWord">Wake Word</label>
                 <select class="form-select" name="wake_word" id="wakeWord">
                     <option value="hey google" {% if settings.wake_word == 'hey google' %}selected{% endif %}>Hey Google</option>
@@ -79,14 +79,14 @@
             </div>
     
             <!-- System Prompt -->
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="systemPrompt">System Prompt</label>
                 <input type="text" class="form-control" name="system_prompt" id="systemPrompt" placeholder="Enter System Prompt" value="{{ settings.system_prompt }}">
                 <small class="form-text text-muted">Customize the prompt used by the system for responses and interactions.</small>
             </div>
     
             <!-- LLM Model Choice -->
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="llmModel">LLM (Large Language Model) Choice</label>
                 <select class="form-select" name="llm_model" id="llmModel">
                     <option value="gpt-3.5-turbo-1106" {% if settings.llm_model == 'gpt-3.5-turbo-1106' %}selected{% endif %}>gpt-3.5-turbo-1106</option>
@@ -96,7 +96,7 @@
             </div>
     
             <!-- Voice Diarization -->
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="voiceDiarization">Voice Diarization</label>
                 <select class="form-control" name="voice_diarization" id="voiceDiarization">
                     <option value="enabled" {% if settings.voice_diarization == 'enabled' %}selected{% endif %}>Enabled</option>
