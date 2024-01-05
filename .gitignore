@@ -3,3 +3,4 @@ jarvisSetup/jarvisSetup/__pycache__/*
 jarvisSetup/webserver/migrations/__pycache__/*
 venv/
 jarvisSetup/db.sqlite3
+jarvisSetup/db.sqlite3
