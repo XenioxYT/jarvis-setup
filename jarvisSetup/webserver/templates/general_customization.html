@@ -28,7 +28,7 @@
                         <a class="nav-link" href="{% url 'configuration_settings' %}">Configuration Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'general_customization' %}">General Customization</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'general_customization' %}"><strong>General Customisation</strong></a>
                     </li>
                 </ul>
             </div>
@@ -38,14 +38,14 @@
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'error' %}
-                <div class="alert alert-danger alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <i class="fas fa-exclamation-circle"></i> {{ message }}
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>Error!</strong> {{ message }}
                 </div>
             {% else %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <i class="fas fa-check-circle"></i> {{ message }}
+                <div class="alert alert-success alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>Success!</strong> {{ message }}
                 </div>
             {% endif %}
         {% endfor %}
