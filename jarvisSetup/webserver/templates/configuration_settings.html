@@ -40,52 +40,59 @@
         <p>Set and modify the environment variables required for tool functionalities.</p>
         
         <form>
-            <h4>Required Variables</h4>
+            <h4 class="mt-3">Required Variables</h4>
             <!-- Picovoice Access Key -->
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="porcupineAccessKey">Picovoice Access Key</label>
                 <input type="text" class="form-control" id="porcupineAccessKey" placeholder="Enter Porcupine Access Key">
                 <small class="form-text text-muted">Sccess key for the Porcupine Keyword Detection, Eagle Speaker Diarization, and Koala Noise Suppression services.</small>
             </div>
 
             <!-- OpenAI API Key -->
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="openaiApiKey">OpenAI API Key</label>
                 <input type="text" class="form-control" id="openaiApiKey" placeholder="Enter OpenAI API Key">
                 <small class="form-text text-muted">API key for accessing OpenAI services for advanced AI functionalities.</small>
             </div>
 
             <!-- OpenAI API Base -->
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="openaiApiBase">OpenAI API Base URL</label>
                 <input type="text" class="form-control" id="openaiApiBase" placeholder="Enter OpenAI API Base URL">
                 <small class="form-text text-muted">Base URL for making API requests to OpenAI.</small>
             </div>
 
+
+
             {% if tool_settings.discord_message or tool_settings.google_search or tool_settings.google_maps_info or tool_settings.google_maps_directions or tool_settings.smart_home_control %}
-            <h4>Required Variables for selected Tools</h4>
+            <h4 class="mt-3">Required Variables for selected Tools</h4>
             {% endif %}
+
             <!-- Discord Token -->
             {% if tool_settings.discord_message %}
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="discordToken">Discord Token</label>
                 <input type="text" class="form-control" id="discordToken" placeholder="Enter Discord Token">
                 <small class="form-text text-muted">Token for integrating with Discord API for messaging features.</small>
             </div>
             {% endif %}
 
+
+
             <!-- Google API Key -->
             {% if tool_settings.google_search %}
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="googleApiKey">Google Search API Key</label>
                 <input type="text" class="form-control" id="googleApiKey" placeholder="Enter Google API Key">
                 <small class="form-text text-muted">API key for accessing Google search services.</small>
             </div>
             {% endif %}
 
+
+
             <!-- Google CSE ID -->
             {% if tool_settings.google_search %}
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="googleCseId">Google CSE ID</label>
                 <input type="text" class="form-control" id="googleCseId" placeholder="Enter Google CSE ID">
                 <small class="form-text text-muted">Custom Search Engine ID for integrating Google Search functionalities.</small>
@@ -94,7 +101,7 @@
 
             <!-- Google Maps API Key -->
             {% if tool_settings.google_maps_directions or tool_settings.google_maps_info %}
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="googleMapsApiKey">Google Maps API Key</label>
                 <input type="text" class="form-control" id="googleMapsApiKey" placeholder="Enter Google Maps API Key">
                 <small class="form-text text-muted">API key for utilizing Google Maps features like directions and place information.</small>
@@ -105,12 +112,12 @@
 
             <!-- Home Assistant Token and URL -->
             {% if tool_settings.smart_home_control %}
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="hassToken">Home Assistant Token</label>
                 <input type="text" class="form-control" id="hassToken" placeholder="Enter Home Assistant Token">
                 <small class="form-text text-muted">Access token for integrating with Home Assistant for smart home control.</small>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label for="hassUrl">Home Assistant URL</label>
                 <input type="text" class="form-control" id="hassUrl" placeholder="Enter Home Assistant URL">
                 <small class="form-text text-muted">URL to access your Home Assistant instance.</small>
