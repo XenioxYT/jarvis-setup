@@ -7,8 +7,10 @@ from django.contrib import messages
 from pathlib import Path
 
 def home(request):
+    Tools.objects.get_or_create(id=1)
+    GeneralCustomization.objects.get_or_create(id=1)
+    ConfigurationSetting.objects.get_or_create(id=1)
     return render(request, 'home.html')
-    # You'll create home.html later in your templates
 
 
 def home_assistant(request):
@@ -16,6 +18,9 @@ def home_assistant(request):
 
 
 def tools(request):
+    Tools.objects.get_or_create(id=1)
+    GeneralCustomization.objects.get_or_create(id=1)
+    ConfigurationSetting.objects.get_or_create(id=1)
     try:
         settings = Tools.objects.first()
     except Tools.DoesNotExist:
@@ -34,6 +39,9 @@ def tools(request):
 
 
 def configuration_settings(request):
+    Tools.objects.get_or_create(id=1)
+    GeneralCustomization.objects.get_or_create(id=1)
+    ConfigurationSetting.objects.get_or_create(id=1)
     tool_settings = Tools.objects.first()
 
     if request.method == 'POST':
@@ -85,6 +93,9 @@ def configuration_settings(request):
 
 
 def general_customization(request):
+    Tools.objects.get_or_create(id=1)
+    GeneralCustomization.objects.get_or_create(id=1)
+    ConfigurationSetting.objects.get_or_create(id=1)
     try:
         settings = GeneralCustomization.objects.first()
     except GeneralCustomization.DoesNotExist:
