@@ -2,11 +2,12 @@ from django.db import models
 
 # Create your models here.
 class GeneralCustomization(models.Model):
-    assistant_name = models.CharField(max_length=100)
-    wake_word = models.CharField(max_length=50)
-    system_prompt = models.CharField(max_length=100)
-    llm_model = models.CharField(max_length=50)
-    voice_diarization = models.CharField(max_length=50)
+    assistant_name = models.CharField(max_length=100, default="Jarvis")
+    wake_word = models.CharField(max_length=50, default="jarvis")
+    # system_prompt = models.CharField(max_length=100)
+    llm_model = models.CharField(max_length=50, default="gpt-3.5-turbo-1106")
+    voice_diarization = models.BooleanField(default=False)
+
     
 class Tools(models.Model):
     live_weather = models.BooleanField(default=False)
