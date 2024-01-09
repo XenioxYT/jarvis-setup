@@ -79,11 +79,11 @@
             </div>
     
             <!-- System Prompt -->
-            <div class="form-group mt-3">
+            {% comment %} <div class="form-group mt-3">
                 <label for="systemPrompt">System Prompt</label>
                 <input type="text" class="form-control" name="system_prompt" id="systemPrompt" placeholder="Enter System Prompt" value="{{ settings.system_prompt }}">
                 <small class="form-text text-muted">Customize the prompt used by the system for responses and interactions.</small>
-            </div>
+            </div> {% endcomment %}
     
             <!-- LLM Model Choice -->
             <div class="form-group mt-3">
@@ -96,12 +96,9 @@
             </div>
     
             <!-- Voice Diarization -->
-            <div class="form-group mt-3">
-                <label for="voiceDiarization">Voice Diarization</label>
-                <select class="form-control" name="voice_diarization" id="voiceDiarization">
-                    <option value="enabled" {% if settings.voice_diarization == 'enabled' %}selected{% endif %}>Enabled</option>
-                    <option value="disabled" {% if settings.voice_diarization == 'disabled' %}selected{% endif %}>Disabled</option>
-                </select>
+            <div class="form-check form-switch mt-3">
+                <input class="form-check-input" type="checkbox" id="voiceDiarization" name="voice_diarization" value="on" {% if settings.voice_diarization %}checked{% endif %}>
+                <label class="form-check-label" for="editNotes">Voice Diarization</label>
                 <small class="form-text text-muted">Enable or disable voice diarization to distinguish different speakers.</small>
             </div>
     
