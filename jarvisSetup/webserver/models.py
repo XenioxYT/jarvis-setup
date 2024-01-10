@@ -30,10 +30,14 @@ class Tools(models.Model):
 class ConfigurationSetting(models.Model):
     picovoice_access_key = models.CharField(max_length=255)
     openai_api_key = models.CharField(max_length=255)
-    openai_api_base = models.CharField(max_length=255)
+    openai_api_base = models.CharField(max_length=255, default="https://api.openai.com/v1")
     discord_token = models.CharField(max_length=255, blank=True, null=True)
     google_api_key = models.CharField(max_length=255, blank=True, null=True)
     google_cse_id = models.CharField(max_length=255, blank=True, null=True)
     google_maps_api_key = models.CharField(max_length=255, blank=True, null=True)
     home_assistant_token = models.CharField(max_length=255, blank=True, null=True)
-    home_assistant_url = models.CharField(max_length=255, blank=True, null=True)
+    home_assistant_url = models.CharField(max_length=255, blank=True, null=True, default="http://localhost:8123")
+    
+
+class SetupFlow(models.Model):
+    setup_flow = models.CharField(default="home", max_length=100)
