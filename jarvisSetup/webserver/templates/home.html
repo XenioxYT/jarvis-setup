@@ -98,15 +98,63 @@
                             4. Assistant Controls
                         </h5>
                         <p class="card-text">Manage your assistant's controls such as starting, stopping, and restarting the assistant. Feel free to make changes to the configuration above!</p>
-                        <a href="{% url 'home' %}" class="btn btn-success px-4 mx-2 {% if setup_flow.setup_flow != 'done' %}disabled btn-secondary{% endif %}">Start</a>
-                        <a href="{% url 'home' %}" class="btn btn-danger px-4 mx-2 {% if setup_flow.setup_flow != 'done' %}disabled btn-secondary{% endif %}">Stop</a>
-                        <a href="{% url 'home' %}" class="btn btn-warning px-4 mx-2 {% if setup_flow.setup_flow != 'done' %}disabled btn-secondary{% endif %}">Restart</a>
-                        <a href="{% url 'home' %}" class="btn btn-primary px-4 mx-2 {% if setup_flow.setup_flow != 'done' %}disabled btn-secondary{% endif %}">Clear Conversation</a>
+                        <button id="startButton" class="btn btn-success mx-2 {% if setup_flow.setup_flow != 'done' %}disabled btn-secondary{% endif %}">
+                            Start
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                        </button>
+                        <button id="stopButton" class="btn btn-danger mx-2 {% if setup_flow.setup_flow != 'done' %}disabled btn-secondary{% endif %}">
+                            Stop
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                        </button>
+                        <button id="restartButton" class="btn btn-warning mx-2 {% if setup_flow.setup_flow != 'done' %}disabled btn-secondary{% endif %}">
+                            Restart
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                        </button>
+                        <button id="clearButton" class="btn btn-primary mx-2 {% if setup_flow.setup_flow != 'done' %}disabled btn-secondary{% endif %}">
+                            Clear Conversation
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        var buttons = ["startButton", "stopButton", "restartButton", "clearButton"];
+        var urls = ['/run-task/', '/stop-task/', '/restart-task/', '/clear-conversation/'];
+
+        buttons.forEach(function(buttonId, index) {
+            document.getElementById(buttonId).addEventListener("click", function() {
+                var button = this;
+                var spinner = button.querySelector('.spinner-border');
+            
+                // Show spinner
+                spinner.style.display = 'inline-block';
+            
+                // Make AJAX call
+                fetch(urls[index], {
+                    method: 'GET',  // or 'POST' if necessary
+                    // headers, credentials, etc. for CSRF and other settings
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Hide spinner
+                    spinner.style.display = 'none';
+                    
+                    // Handle response
+                    if(data.status === 'completed') {
+                        // Update UI or notify user
+                    }
+                })
+                .catch(error => {
+                    // Hide spinner
+                    spinner.style.display = 'none';
+                    // Handle error
+                });
+            });
+        });
+        </script>
 
     <!-- Additional Styles -->
     <style>
