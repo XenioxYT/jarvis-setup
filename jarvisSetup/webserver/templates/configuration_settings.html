@@ -101,7 +101,7 @@
             {% if tool_settings.discord_message %}
             <div class="form-group mt-3">
                 <label for="discordToken">Discord Token</label>
-                <input type="text" class="form-control" id="discordToken" name="discord_token" placeholder="Enter Discord Token" value="{{ current_config.discord_token|default_if_none:'' }}">
+                <input type="text" class="form-control" id="discordToken" name="discord_token" placeholder="Enter Discord Token" value="{{ current_config.discord_token|default_if_none:'' }}"required>
                 <small class="form-text text-muted">Token for integrating with Discord API for messaging features.</small>
             </div>
             {% endif %}
@@ -112,7 +112,7 @@
             {% if tool_settings.google_search %}
             <div class="form-group mt-3">
                 <label for="googleApiKey">Google Search API Key</label>
-                <input type="text" class="form-control" id="googleApiKey" name="google_api_key" placeholder="Enter Google API Key" value="{{ current_config.google_api_key|default_if_none:'' }}">
+                <input type="text" class="form-control" id="googleApiKey" name="google_api_key" placeholder="Enter Google API Key" value="{{ current_config.google_api_key|default_if_none:'' }}"required>
                 <small class="form-text text-muted">API key for accessing Google search services.</small>
             </div>
             {% endif %}
@@ -123,7 +123,7 @@
             {% if tool_settings.google_search %}
             <div class="form-group mt-3">
                 <label for="googleCseId">Google CSE ID</label>
-                <input type="text" class="form-control" id="googleCseId" name="google_cse_id" placeholder="Enter Google CSE ID" value="{{ current_config.google_cse_id|default_if_none:'' }}">
+                <input type="text" class="form-control" id="googleCseId" name="google_cse_id" placeholder="Enter Google CSE ID" value="{{ current_config.google_cse_id|default_if_none:'' }}"required>
                 <small class="form-text text-muted">Custom Search Engine ID for integrating Google Search functionalities.</small>
             </div>
             {% endif %}
@@ -132,7 +132,7 @@
             {% if tool_settings.google_maps_directions or tool_settings.google_maps_info %}
             <div class="form-group mt-3">
                 <label for="googleMapsApiKey">Google Maps API Key</label>
-                <input type="text" class="form-control" id="googleMapsApiKey" name="google_maps_api_key" placeholder="Enter Google Maps API Key" value="{{ current_config.google_maps_api_key|default_if_none:'' }}">
+                <input type="text" class="form-control" id="googleMapsApiKey" name="google_maps_api_key" placeholder="Enter Google Maps API Key" value="{{ current_config.google_maps_api_key|default_if_none:'' }}"required>
                 <small class="form-text text-muted">API key for utilizing Google Maps features like directions and place information.</small>
             </div>
             {% endif %}
@@ -143,12 +143,12 @@
             {% if tool_settings.smart_home_control %}
             <div class="form-group mt-3">
                 <label for="hassToken">Home Assistant Token</label>
-                <input type="text" class="form-control" id="hassToken" name="home_assistant_token" placeholder="Enter Home Assistant Token" value="{{ current_config.home_assistant_token|default_if_none:'' }}">
+                <input type="text" class="form-control" id="hassToken" name="home_assistant_token" placeholder="Enter Home Assistant Token" value="{{ current_config.home_assistant_token|default_if_none:'' }}"required>
                 <small class="form-text text-muted">Access token for integrating with Home Assistant for smart home control.</small>
             </div>
             <div class="form-group mt-3">
                 <label for="hassUrl">Home Assistant URL</label>
-                <input type="text" class="form-control" id="hassUrl" name="home_assistant_url" placeholder="Enter Home Assistant URL" name="home_assistant_url" value="{{ current_config.home_assistant_url|default_if_none:'' }}">
+                <input type="text" class="form-control" id="hassUrl" name="home_assistant_url" placeholder="Enter Home Assistant URL" name="home_assistant_url" value="{{ current_config.home_assistant_url|default_if_none:'' }}"required>
                 <small class="form-text text-muted">URL to access your Home Assistant instance.</small>
             </div>
             {% endif %}
