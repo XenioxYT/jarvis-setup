@@ -24,4 +24,8 @@ urlpatterns = [
     path('tools/', views.tools, name='tools'),
     path('configuration-settings/', views.configuration_settings, name='configuration_settings'),
     path('general-customization/', views.general_customization, name='general_customization'),
+    path('run-task/', views.run_task, name='run-task'),
+    path('stop-task/', views.stop_task, name='stop-task'),
+    path('restart-task/', views.restart_task, name='restart-task'),
+    path('clear-conversation/', views.clear_conversation, name='clear-conversation'),
 ]
