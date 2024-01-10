@@ -1,7 +1,7 @@
 # Create your views here.
 from django.shortcuts import render, redirect
 from .forms import GeneralCustomizationForm, ToolsForm, ConfigurationSettingForm
-from .models import GeneralCustomization, Tools, ConfigurationSetting
+from .models import GeneralCustomization, Tools, ConfigurationSetting, SetupFlow
 from dotenv import load_dotenv, dotenv_values, set_key
 from django.contrib import messages
 from pathlib import Path
@@ -10,7 +10,10 @@ def home(request):
     Tools.objects.get_or_create(id=1)
     GeneralCustomization.objects.get_or_create(id=1)
     ConfigurationSetting.objects.get_or_create(id=1)
-    return render(request, 'home.html')
+    SetupFlow.objects.get_or_create(id=1)
+    setup_flow = SetupFlow.objects.first()
+    setup_flow.save()
+    return render(request, 'home.html', {'setup_flow': setup_flow})
 
 
 def home_assistant(request):
@@ -30,8 +33,13 @@ def tools(request):
         form = ToolsForm(request.POST, instance=settings)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Changes saved successfully') 
-            return redirect('tools')
+            # messages.success(request, 'Changes saved successfully') 
+            # change the setup flow to the next step, "tools"
+            setup_flow = SetupFlow.objects.first()
+            print(setup_flow.setup_flow)
+            setup_flow.setup_flow = "config"
+            setup_flow.save()
+            return redirect('home')
     else:
         form = ToolsForm(instance=settings)
 
@@ -77,8 +85,11 @@ def configuration_settings(request):
             messages.error(request, f'Error saving configuration: {e}')
             return redirect('configuration_settings')
 
-        messages.success(request, 'Configuration updated successfully!')
-        return redirect('configuration_settings')
+        # messages.success(request, 'Configuration updated successfully!')
+        setup_flow = SetupFlow.objects.first()
+        setup_flow.setup_flow = "done"
+        setup_flow.save()
+        return redirect('home')
     
     # If GET request, prepare the context
     try:
@@ -105,8 +116,11 @@ def general_customization(request):
         form = GeneralCustomizationForm(request.POST, instance=settings)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Changes saved successfully.')
-            return redirect('general_customization')
+            # messages.success(request, 'Changes saved successfully.')
+            setup_flow = SetupFlow.objects.first()
+            setup_flow.setup_flow = "tools"
+            setup_flow.save()
+            return redirect('home')
         else:
             messages.error(request, 'Changes not saved, please fill in all the fields.')
     else:
