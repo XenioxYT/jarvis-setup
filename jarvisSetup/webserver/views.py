@@ -5,6 +5,33 @@ from .models import GeneralCustomization, Tools, ConfigurationSetting, SetupFlow
 from dotenv import load_dotenv, dotenv_values, set_key
 from django.contrib import messages
 from pathlib import Path
+from django.http import JsonResponse
+import time
+
+
+def run_task(request):
+    # Simulate a task running
+    time.sleep(5)  # Replace with your actual task
+    return JsonResponse({'status': 'completed'})
+
+
+def stop_task(request):
+    # Simulate a task stopping
+    time.sleep(5)  # Replace with your actual task
+    return JsonResponse({'status': 'completed'})
+
+
+def restart_task(request):
+    # Simulate a task restarting
+    time.sleep(5)  # Replace with your actual task
+    return JsonResponse({'status': 'completed'})
+
+
+def clear_conversation(request):
+    # Simulate a task restarting
+    time.sleep(5)  # Replace with your actual task
+    return JsonResponse({'status': 'completed'})
+
 
 def home(request):
     Tools.objects.get_or_create(id=1)
